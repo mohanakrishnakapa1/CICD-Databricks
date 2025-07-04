@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: development
     env:
-      DATABRICKS_HOST: ${{ secrets.DEPLOYMENT_TARGET_URL }}
-      DATABRICKS_TOKEN:  ${{ secrets.DEPLOYMENT_TARGET_TOKEN }}
+      DATABRICKS_HOST: ${{ secrets.DB_TARGET_URL }}
+      DATABRICKS_TOKEN:  ${{ secrets.DB_DPOLYMENT_TARGET_TOKEN }}
       REPO_PATH: /Workspace/Users/mohanakapa@outlook.com/CICD-Databricks
       # DBFS_LIB_PATH: dbfs:/path/to/libraries/
       # LATEST_WHEEL_NAME: latest_wheel_name.whl
@@ -45,9 +45,12 @@ jobs:
     #     pip install pytest setuptools wheel
 
     - name: Extract branch name
-      shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
+      #shell: bash
+      run: |
+        BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+        echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT # Corrected line for GITHUB_OUTPUT
+
 
     - name: Update Databricks Git folder
       run: |
