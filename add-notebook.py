@@ -7,7 +7,7 @@ def product(a, b):
 
     return a * b
 
-add(5, 2), product(100, 24)
+add(202, 2), product(200, 24)
 
 # COMMAND ----------
 
